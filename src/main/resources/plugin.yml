@@ -1,0 +1,11 @@
+name: UnrealHUD
+version: '${version}'
+main: com.daxton.unrealhud.UnrealHUD
+api-version: '1.16'
+softdepend: [PlaceholderAPI, UnrealResource]
+depend: [UnrealCore]
+folia-supported: true
+commands:
+  unrealhud:
+    description: Basic instructions.
+    aliases: uhud

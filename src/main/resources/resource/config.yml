@@ -1,0 +1,21 @@
+#是否啟用HUD
+#Whether to enable HUD
+enable: true
+
+#是否在玩家接收完資源包，才發送HUD給玩家。(避免沒抓到圖出現錯誤顯示)
+#Whether to send the HUD to the player after the player has received the resource pack.(To avoid error display if the picture is not captured)
+resource_end: true
+
+#HUD更新頻率(單位為tick，20tick大約為1秒)
+#HUD update frequency (The unit is tick, 20 ticks is approximately 1 second)
+refresh_time: 5
+
+#HUD發送延遲
+#HUD sending delay
+send_delay: 1
+
+#預設要使用的HUD
+#Preset the HUD to use
+hud: 'example'
+
+
