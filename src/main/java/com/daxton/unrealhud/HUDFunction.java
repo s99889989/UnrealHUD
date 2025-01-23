@@ -19,6 +19,9 @@ public class HUDFunction {
         UnrealHUDController.hudDataConfigList.forEach(moduleData->{
             moduleData.applyFunctionToFields(this::placeholder);
         });
+        UnrealHUDController.gui_hudDataConfigList.forEach(moduleData->{
+            moduleData.applyFunctionToFields(this::placeholder);
+        });
     }
 
 }

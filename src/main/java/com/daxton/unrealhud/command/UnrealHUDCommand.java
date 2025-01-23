@@ -20,7 +20,7 @@ public class UnrealHUDCommand implements CommandExecutor {
                     }
                     player.sendMessage("[UnrealHUD] Reload");
                 }
-                UnrealHUD.sendSystemLogger("Reload");
+                UnrealHUD.unrealCorePlugin.sendSystemLogger("Reload");
                 UnrealHUDController.reload();
                 return true;
             }

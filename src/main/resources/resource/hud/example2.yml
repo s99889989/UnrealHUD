@@ -1,0 +1,270 @@
+Image0:
+  Type: 'Image'
+  Position: 1
+  X: 5
+  Y: 6
+  Width: 40
+  Height: 40
+  Image: 'hud/avatar_frame.png'
+
+Image2:
+  Type: 'Image'
+  Position: 1
+  X: 15
+  Y: 16
+  Width: 20
+  Height: 20
+  Image: 'https://minotar.net/avatar/{player_self_uuid}'
+
+Image3:
+  Type: 'Image'
+  Position: 1
+  X: 50
+  Y: 10
+  Width: 200
+  Height: 5
+  Image: 'hud/bar_air.png'
+
+Image4:
+  Type: 'Image'
+  Position: 1
+  X: 50
+  Y: 20
+  Width: 200
+  Height: 5
+  Image: 'hud/bar_air.png'
+
+Image5:
+  Type: 'Image'
+  Position: 1
+  X: 50
+  Y: 20
+  Width: 200
+  Height: 5
+  Image: 'hud/bar_blue.png'
+
+Image6:
+  Type: 'Image'
+  Position: 1
+  X: 50
+  Y: 10
+  Width: '%player_health%/%player_max_health%*200'
+  Height: 5
+  Image: 'hud/bar_green.png'
+
+Text7:
+  Type: 'Text'
+  Position: 1
+  X: 14
+  Y: 49
+  Text:
+    - '%player_displayname%'
+  TextSize: 1
+  TextColor: '2894FF'
+
+Item8:
+  Type: 'Item'
+  Position: 1
+  X: 50
+  Y: 30
+  Item: '{Count:1b,id:"minecraft:stone"}'
+  ItemSize: 1
+  ItemAmount: 10
+  
+Slot36:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 36
+  ItemSize: 1
+  X: 50
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot37:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 37
+  ItemSize: 1
+  X: 70
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot38:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 38
+  ItemSize: 1
+  X: 90
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot39:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 39
+  ItemSize: 1
+  X: 110
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot40:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 40
+  ItemSize: 1
+  X: 130
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot41:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 41
+  ItemSize: 1
+  X: 150
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot42:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 42
+  ItemSize: 1
+  X: 170
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot43:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 43
+  ItemSize: 1
+  X: 190
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22
+
+Slot44:
+  Type: Slot
+  Position: 1
+  Image: gui/slot/slot.png
+  Width: 18
+  Height: 18
+  Color: FFFFFF
+  Transparent: 255
+  HoverMargin: 1
+  HoverColor: '006800'
+  HoverTransparent: 255
+  Slot: 44
+  ItemSize: 1
+  X: 210
+  Y: 50
+  Select:
+    Image: 'hud/avatar_frame.png'
+    Color: FFFFFF
+    Transparent: 255
+    Width: 22
+    Height: 22

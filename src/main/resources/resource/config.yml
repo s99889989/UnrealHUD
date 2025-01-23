@@ -18,4 +18,13 @@ send_delay: 1
 #Preset the HUD to use
 hud: 'example'
 
+#要顯示在GUI上面的HUD
+#HUD to be displayed on the GUI.
+gui_hud:
 
+  #是否啟用
+  #Whether to enable
+  enable: false
+
+  #使用的設置
+  hud: 'example2'

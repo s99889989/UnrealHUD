@@ -2,7 +2,7 @@ package com.daxton.unrealhud.controller;
 
 import com.daxton.unrealcore.application.UnrealCoreAPI;
 import com.daxton.unrealcore.application.base.PluginUtil;
-import com.daxton.unrealcore.application.method.SchedulerFunction;
+import com.daxton.unrealcore.application.method.SchedulerRunnable;
 import com.daxton.unrealcore.display.been.module.ModuleData;
 import com.daxton.unrealhud.HUDFunction;
 import com.daxton.unrealhud.UnrealHUD;
@@ -24,30 +24,35 @@ public class UnrealHUDController {
 
     //設定檔
     public static UnrealHUDConfig unrealHUDConfig;
-
-    public static SchedulerFunction.RunTask runTask;
+    //佔位符更新
+    public static SchedulerRunnable runTask;
 
     //佔位符列表
     public static Map<String, String> customValue = new ConcurrentHashMap<>();
 
     public static String contentString = "null";
     public static List<String> keyList = new ArrayList<>();
-
+    //HUD
     public static List<ModuleData> hudDataConfigList;
+    //GUI_HUD
+    public static List<ModuleData> gui_hudDataConfigList;
+
     public static void load(){
-        if(Bukkit.getPluginManager().getPlugin("UnrealCore") == null){
-            return;
-        }
         //建立設定檔
-        PluginUtil.CreateConfig(UnrealHUD.unrealHUD);
+        createConfig();
 
         FileConfiguration hudConfig = getYmlFile("config.yml");
         unrealHUDConfig = new UnrealHUDConfig(hudConfig);
 
-
+        //HUD
         FileConfiguration hud = getYmlFile("hud/"+unrealHUDConfig.getHud()+".yml");
-        hudDataConfigList = UnrealCoreAPI.getHUDList("", hud);
-        HUDFunction hudFunction =new HUDFunction();
+        hudDataConfigList = UnrealCoreAPI.inst().getHUDHelper().getHUDList("", hud);
+
+        //GUI_HUD
+        FileConfiguration guiHudConfig = getYmlFile("hud/"+unrealHUDConfig.getGuiHUD()+".yml");
+        gui_hudDataConfigList = UnrealCoreAPI.inst().getHUDHelper().getHUDList("", guiHudConfig);
+
+        HUDFunction hudFunction = new HUDFunction();
 
 
         if(Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null){
@@ -67,12 +72,15 @@ public class UnrealHUDController {
         }
 
 
+
     }
     //重新讀取設定
     public static void reload(){
-        Bukkit.getOnlinePlayers().forEach(UnrealHUDController::removeHUD);
+        if(runTask != null){
+            runTask.cancel();
+        }
         customValue.clear();
-        runTask.cancel();
+        Bukkit.getOnlinePlayers().forEach(UnrealHUDController::removeHUD);
         load();
         Bukkit.getOnlinePlayers().forEach(UnrealHUDController::sendHUD);
 
@@ -81,22 +89,40 @@ public class UnrealHUDController {
     //更新自訂佔位符
     public static void updatePlaceholder(){
         int refresh_time = unrealHUDConfig.getRefresh_time();
-        runTask = SchedulerFunction.runTimer(UnrealHUD.unrealHUD,()->{
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                String contentStringPlaceholder = PlaceholderAPI.setPlaceholders(player, contentString);
+        runTask = new SchedulerRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getOnlinePlayers().forEach(player -> {
+                    String contentStringPlaceholder = PlaceholderAPI.setPlaceholders(player, contentString);
 
-                String[] strings = contentStringPlaceholder.split(" . ");
-                Map<String, String> customValueMap = new HashMap<>();
-                for(int i = 1; i < strings.length ; i++){
-                    String contentChange = keyList.get(i-1);
-                    String value = strings[i];
-                    customValueMap.put(contentChange, value);
-                }
-                UnrealCoreAPI.customValueMultiSet(player, customValueMap);
-            });
-
-
-        }, 0, refresh_time);
+                    String[] strings = contentStringPlaceholder.split(" . ");
+                    Map<String, String> customValueMap = new HashMap<>();
+                    for(int i = 1; i < strings.length ; i++){
+                        String contentChange = keyList.get(i-1);
+                        String value = strings[i];
+                        customValueMap.put(contentChange, value);
+                    }
+                    UnrealCoreAPI.customValueMultiSet(player, customValueMap);
+                });
+            }
+        };
+        runTask.runTimer(UnrealHUD.unrealCorePlugin.getJavaPlugin(),0, refresh_time);
+//        runTask = SchedulerFunction.runTimer(UnrealHUD.unrealCorePlugin.getJavaPlugin(),()->{
+//            Bukkit.getOnlinePlayers().forEach(player -> {
+//                String contentStringPlaceholder = PlaceholderAPI.setPlaceholders(player, contentString);
+//
+//                String[] strings = contentStringPlaceholder.split(" . ");
+//                Map<String, String> customValueMap = new HashMap<>();
+//                for(int i = 1; i < strings.length ; i++){
+//                    String contentChange = keyList.get(i-1);
+//                    String value = strings[i];
+//                    customValueMap.put(contentChange, value);
+//                }
+//                UnrealCoreAPI.customValueMultiSet(player, customValueMap);
+//            });
+//
+//
+//        }, 0, refresh_time);
 
     }
     //            contentString = "null";
@@ -110,20 +136,36 @@ public class UnrealHUDController {
 
     //向玩家發送HUD
     public static void sendHUD(Player player){
-        boolean enable = unrealHUDConfig.isEnable();
-        if(!enable){
-            return;
+       
+        if(unrealHUDConfig.isEnable()){
+            UnrealCoreAPI.inst(player).getHUDHelper().setHUD(UnrealHUDController.hudDataConfigList);
         }
-        UnrealCoreAPI.setHUD(player, UnrealHUDController.hudDataConfigList);
+
+        if(unrealHUDConfig.isGuiHUDEnabled()){
+            UnrealCoreAPI.inst(player).getGUI_HUDHelper().setHUD(UnrealHUDController.gui_hudDataConfigList);
+        }
+
     }
     public static void removeHUD(Player player){
-        UnrealCoreAPI.removeHUD(player, UnrealHUDController.hudDataConfigList);
+
+        UnrealCoreAPI.inst(player).getHUDHelper().removeHUD(UnrealHUDController.hudDataConfigList);
+
+        UnrealCoreAPI.inst(player).getGUI_HUDHelper().removeHUD(UnrealHUDController.gui_hudDataConfigList);
+
     }
 
 
     //從插件預設路徑獲取YML檔案
     public static FileConfiguration getYmlFile(String path){
-        File file = new File(UnrealHUD.getResourceFolder(), path);
+        File file = new File(UnrealHUD.unrealCorePlugin.getResourceFolder(), path);
         return YamlConfiguration.loadConfiguration(file);
     }
+
+    //建立設定檔
+    public static void createConfig(){
+        PluginUtil.resourceCopy(UnrealHUD.unrealCorePlugin.getJavaPlugin(), "hud/example.yml", false);
+        PluginUtil.resourceCopy(UnrealHUD.unrealCorePlugin.getJavaPlugin(), "hud/example2.yml", false);
+        PluginUtil.resourceCopy(UnrealHUD.unrealCorePlugin.getJavaPlugin(), "config.yml", false);
+    }
+
 }
